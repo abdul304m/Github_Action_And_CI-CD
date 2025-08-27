@@ -1,0 +1,26 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:                 # Define a job named 'build'
+    runs-on: ubuntu-latest   # Use GitHub’s Ubuntu runner
+
+    steps:
+      # Step 1: Checkout code
+      - uses: actions/checkout@v2
+        # This pulls your repo’s code into the workflow environment
+
+      # Step 2: Install dependencies
+      - name: Install dependencies
+        run: npm install
+        # This installs everything from your package.json
+
+      # Step 3: Build project
+      - name: Build
+        run: npm run build
+        # This runs the build script from package.json
