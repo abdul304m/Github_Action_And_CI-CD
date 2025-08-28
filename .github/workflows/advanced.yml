@@ -1,0 +1,45 @@
+name: Advanced GitHub Actions Example
+
+env:
+  CUSTOM_VAR: "Hello from workflow env"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  env-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Print environment variable
+        run: echo "CUSTOM_VAR is: $CUSTOM_VAR"
+  secrets-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Print secret
+        run: echo "Access token is: ${{ secrets.ACCESS_TOKEN }}"
+  conditional-job:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Conditional message
+        run: echo "This job runs only for push to main"
+  output-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Generate output
+        id: step-one
+        run: echo "value=hello" >> $GITHUB_OUTPUT
+
+      - name: Step 2 - Use output from step one
+        run: echo "Received value from step one: ${{ steps.step-one.outputs.value }}"
