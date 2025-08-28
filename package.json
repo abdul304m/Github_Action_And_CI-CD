@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "editing for testing",
   "main": "index.js",
-    "scripts": {
+  "scripts": {
     "start": "node server.js",
     "test": "jest --passWithNoTests",
     "build": "echo \"Build step placeholder\""
@@ -12,7 +12,6 @@
     "type": "git",
     "url": "git+https://github.com/abdul304m/Github_Action_And_CI-CD.git"
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -28,3 +27,4 @@
     "supertest": "^7.1.4"
   }
 }
+
