@@ -1,0 +1,33 @@
+name: Node.js Matrix Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]  # Run job on 3 Node versions
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest, macos-latest]
+    node-version: [16.x, 18.x]
