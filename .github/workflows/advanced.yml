@@ -8,6 +8,7 @@ on:
     branches:
       - main
   workflow_dispatch:
+
 jobs:
   env-job:
     runs-on: ubuntu-latest
@@ -17,6 +18,7 @@ jobs:
 
       - name: Print environment variable
         run: echo "CUSTOM_VAR is: $CUSTOM_VAR"
+
   secrets-job:
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +27,7 @@ jobs:
 
       - name: Print secret
         run: echo "Access token is: ${{ secrets.ACCESS_TOKEN }}"
+
   conditional-job:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -32,14 +35,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Conditional message
-        run: echo "This job runs only for push to main"
-  output-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step 1 - Generate output
+      - name: Set output for next step
         id: step-one
-        run: echo "value=hello" >> $GITHUB_OUTPUT
+        run: echo "value=hello from conditional job" >> $GITHUB_OUTPUT
 
-      - name: Step 2 - Use output from step one
-        run: echo "Received value from step one: ${{ steps.step-one.outputs.value }}"
+      - name: Use output
+        run: echo "Received value: ${{ steps.step-one.outputs.value }}"
+
