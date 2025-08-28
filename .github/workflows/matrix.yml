@@ -32,7 +32,10 @@ jobs:
       - name: Run tests
         run: |
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            # Run Jest single-threaded on Windows to avoid availableParallelism errors
             npm test -- --maxWorkers=1
           else
+            # Run normally on Ubuntu/macOS
             npm test -- --passWithNoTests
+          fi
 
