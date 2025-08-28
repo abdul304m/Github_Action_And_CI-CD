@@ -4,10 +4,10 @@
   "description": "editing for testing",
   "main": "index.js",
   "scripts": {
-  "start": "node server.js",
-  "test": "jest --passWithNoTests",
-  "build": "echo \"Build step placeholder\""
-}
+    "start": "node server.js",
+    "test": "jest --passWithNoTests",
+    "build": "echo \"Build step placeholder\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abdul304m/Github_Action_And_CI-CD.git"
@@ -27,3 +27,4 @@
     "supertest": "^7.1.4"
   }
 }
+
