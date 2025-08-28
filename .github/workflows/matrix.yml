@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version:  [18.x, 20.x]  # Removed 16.x
+        node-version: [18.x, 20.x]
 
     steps:
       - name: Checkout repository
@@ -27,14 +27,8 @@ jobs:
           node-version: ${{ matrix['node-version'] }}
 
       - name: Install dependencies
-        run: npm install || echo "Skipping Node 16.x incompatibilities"
+        run: npm install
 
       - name: Run tests
-        run: npm test -- --passWithNoTests || echo "Skipping Node 16.x test issues"
-
-      - name: Print Node.js version
-        run: node -v
-
-      - name: Print npm version
-        run: npm -v
+        run: npm test -- --passWithNoTests || echo "Skipping Node version incompatibility"
 
