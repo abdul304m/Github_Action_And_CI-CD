@@ -12,9 +12,11 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false       # Do NOT cancel other jobs if one fails
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [16.x, 18.x]
+        node-version: [16.x, 18.x, 20.x]   # Test multiple Node versions
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -22,11 +24,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix['node-version'] }}
 
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: npm test -- --passWithNoTests
+
+      - name: Print Node.js version
+        run: node -v
+
+      - name: Print npm version
+        run: npm -v
 
