@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -12,10 +12,11 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]  # Updated Node version to fix Jest error
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
+      # Checks out your repository
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -24,9 +25,12 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      # Installs dependencies from package.json
 
-    - name: Run build
+    - name: Build
       run: npm run build
+      # Runs your build script
 
-    - name: Run tests safely
-      run: npm test -- --passWithNoTests
+    - name: Run tests
+      run: npm test
+      # Runs your test script
